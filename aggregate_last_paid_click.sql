@@ -52,8 +52,7 @@ aggr_last AS (
                 WHEN
                     b.closing_reason = 'Успешно реализовано'
                     OR b.status_id = 142
-                    THEN
-                        b.amount
+                    THEN b.amount
             END
         ) AS revenue
     FROM buffer AS b
@@ -120,3 +119,4 @@ ORDER BY
     al.utm_medium ASC,
     al.utm_campaign ASC
 LIMIT 15;
+
