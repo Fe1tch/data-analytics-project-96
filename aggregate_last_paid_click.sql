@@ -42,16 +42,16 @@ aggr_last AS (
             CASE
                 WHEN b.closing_reason = 'Успешно реализовано'
                     OR b.status_id = 142
-                THEN
-                    b.visitor_id
+                    THEN
+                        b.visitor_id
             END
         ) AS purchases_count,
         SUM(
             CASE
                 WHEN b.closing_reason = 'Успешно реализовано'
                     OR b.status_id = 142
-                THEN
-                    b.amount
+                    THEN
+                        b.amount
             END
         ) AS revenue
     FROM buffer AS b
