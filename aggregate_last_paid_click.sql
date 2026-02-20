@@ -20,7 +20,6 @@ WITH buffer AS (
         AND s.visit_date <= l.created_at
     WHERE LOWER(s.medium) IN ('cpc', 'cpm', 'cpa', 'youtube', 'cpp', 'tg', 'social')
 ),
-
 aggr_last AS (
     SELECT
         b.visit_date::DATE AS visit_date,
@@ -47,7 +46,6 @@ aggr_last AS (
         b.utm_medium,
         b.utm_campaign
 ),
-
 ads_costs AS (
     SELECT
         va.campaign_date::DATE AS campaign_date,
@@ -75,7 +73,6 @@ ads_costs AS (
         ya.utm_medium,
         ya.utm_campaign
 )
-
 SELECT
     al.visit_date,
     al.visitors_count,
