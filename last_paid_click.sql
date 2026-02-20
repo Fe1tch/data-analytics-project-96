@@ -53,5 +53,4 @@ ORDER BY
     s.visit_date ASC,
     s.source ASC,
     s.medium ASC,
-    s.campaign asc;
-
+    s.campaign ASC;
