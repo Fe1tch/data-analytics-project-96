@@ -17,7 +17,7 @@ WITH buffer AS (
     FROM sessions AS s
     LEFT JOIN leads AS l
         ON s.visitor_id = l.visitor_id
-        AND s.visit_date <= l.created_at
+            AND s.visit_date <= l.created_at
     WHERE LOWER(s.medium) IN (
         'cpc',
         'cpm',
@@ -101,9 +101,9 @@ SELECT
 FROM aggr_last AS al
 LEFT JOIN ads_costs AS ac
     ON al.visit_date = ac.campaign_date
-    AND al.utm_source = ac.utm_source
-    AND al.utm_medium = ac.utm_medium
-    AND al.utm_campaign = ac.utm_campaign
+        AND al.utm_source = ac.utm_source
+        AND al.utm_medium = ac.utm_medium
+        AND al.utm_campaign = ac.utm_campaign
 ORDER BY
     al.revenue DESC NULLS LAST,
     al.visit_date ASC,
