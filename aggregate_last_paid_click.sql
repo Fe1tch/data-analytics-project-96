@@ -40,7 +40,8 @@ aggr_last AS (
         COUNT(b.lead_id) AS leads_count,
         COUNT(
             CASE
-                WHEN b.closing_reason = 'Успешно реализовано'
+                WHEN
+                    b.closing_reason = 'Успешно реализовано'
                     OR b.status_id = 142
                     THEN
                         b.visitor_id
@@ -48,7 +49,8 @@ aggr_last AS (
         ) AS purchases_count,
         SUM(
             CASE
-                WHEN b.closing_reason = 'Успешно реализовано'
+                WHEN
+                    b.closing_reason = 'Успешно реализовано'
                     OR b.status_id = 142
                     THEN
                         b.amount
