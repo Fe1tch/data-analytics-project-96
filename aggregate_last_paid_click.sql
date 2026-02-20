@@ -18,7 +18,15 @@ WITH buffer AS (
     LEFT JOIN leads AS l
         ON s.visitor_id = l.visitor_id
         AND s.visit_date <= l.created_at
-    WHERE LOWER(s.medium) IN ('cpc', 'cpm', 'cpa', 'youtube', 'cpp', 'tg', 'social')
+    WHERE LOWER(s.medium) IN (
+        'cpc',
+        'cpm',
+        'cpa',
+        'youtube',
+        'cpp',
+        'tg',
+        'social'
+    )
 ),
 
 aggr_last AS (
@@ -29,16 +37,20 @@ aggr_last AS (
         b.utm_campaign,
         COUNT(b.visitor_id) AS visitors_count,
         COUNT(b.lead_id) AS leads_count,
-        COUNT(CASE
-            WHEN b.closing_reason = 'Успешно реализовано'
-                OR b.status_id = 142
-            THEN b.visitor_id
-        END) AS purchases_count,
-        SUM(CASE
-            WHEN b.closing_reason = 'Успешно реализовано'
-                OR b.status_id = 142
-            THEN b.amount
-        END) AS revenue
+        COUNT(
+            CASE
+                WHEN b.closing_reason = 'Успешно реализовано'
+                    OR b.status_id = 142
+                THEN b.visitor_id
+            END
+        ) AS purchases_count,
+        SUM(
+            CASE
+                WHEN b.closing_reason = 'Успешно реализовано'
+                    OR b.status_id = 142
+                THEN b.amount
+            END
+        ) AS revenue
     FROM buffer AS b
     WHERE b.rn = 1
     GROUP BY
