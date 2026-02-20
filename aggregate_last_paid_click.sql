@@ -16,8 +16,9 @@ WITH buffer AS (
         ) AS rn
     FROM sessions AS s
     LEFT JOIN leads AS l
-        ON s.visitor_id = l.visitor_id
-        AND s.visit_date <= l.created_at
+        ON
+            s.visitor_id = l.visitor_id
+            AND s.visit_date <= l.created_at
     WHERE LOWER(s.medium) IN (
         'cpc',
         'cpm',
@@ -41,14 +42,16 @@ aggr_last AS (
             CASE
                 WHEN b.closing_reason = 'Успешно реализовано'
                     OR b.status_id = 142
-                    THEN b.visitor_id
+                THEN
+                    b.visitor_id
             END
         ) AS purchases_count,
         SUM(
             CASE
                 WHEN b.closing_reason = 'Успешно реализовано'
                     OR b.status_id = 142
-                    THEN b.amount
+                THEN
+                    b.amount
             END
         ) AS revenue
     FROM buffer AS b
@@ -102,10 +105,11 @@ SELECT
     al.revenue
 FROM aggr_last AS al
 LEFT JOIN ads_costs AS ac
-    ON al.visit_date = ac.campaign_date
-    AND al.utm_source = ac.utm_source
-    AND al.utm_medium = ac.utm_medium
-    AND al.utm_campaign = ac.utm_campaign
+    ON
+        al.visit_date = ac.campaign_date
+        AND al.utm_source = ac.utm_source
+        AND al.utm_medium = ac.utm_medium
+        AND al.utm_campaign = ac.utm_campaign
 ORDER BY
     al.revenue DESC NULLS LAST,
     al.visit_date ASC,
